@@ -5,7 +5,7 @@ pipeline {
     // agent {
     //     label 'pi'
     // }
-    agent none
+    agent any
 
     environment {
         API_USER = credentials('namecheap-username')
