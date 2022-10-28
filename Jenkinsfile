@@ -15,7 +15,7 @@ pipeline {
         TLD = 'com'
         APPLY_DOMAIN = '*.haomingyin.com'
         SCRIPTS_REPO = 'https://github.com/soaresnetoh/certbot-namecheap-hook.git'
-        EMAIL = credentials('admin-email')
+        // EMAIL = credentials('admin-email')
     }
     // triggers {
     //     cron('H H * * H')
