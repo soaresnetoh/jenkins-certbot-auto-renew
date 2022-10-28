@@ -8,9 +8,9 @@ pipeline {
     agent any
 
     environment {
-        API_USER = credentials('namecheap-username')
-        API_KEY = credentials('namecheap-api-key')
-        USERNAME = credentials('namecheap-username')
+        // API_USER = credentials('namecheap-username')
+        // API_KEY = credentials('namecheap-api-key')
+        // USERNAME = credentials('namecheap-username')
         SLD = 'haomingyin'
         TLD = 'com'
         APPLY_DOMAIN = '*.haomingyin.com'
