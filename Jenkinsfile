@@ -2,9 +2,11 @@ def clientIP = ""
 def acmeMode = "prod"
 
 pipeline {
-    agent {
-        label 'pi'
-    }
+    // agent {
+    //     label 'pi'
+    // }
+    agent none
+
     environment {
         API_USER = credentials('namecheap-username')
         API_KEY = credentials('namecheap-api-key')
@@ -12,12 +14,12 @@ pipeline {
         SLD = 'haomingyin'
         TLD = 'com'
         APPLY_DOMAIN = '*.haomingyin.com'
-        SCRIPTS_REPO = 'https://github.com/haomingyin/certbot-namecheap-hook.git'
+        SCRIPTS_REPO = 'https://github.com/soaresnetoh/certbot-namecheap-hook.git'
         EMAIL = credentials('admin-email')
     }
-    triggers {
-        cron('H H * * H')
-    }
+    // triggers {
+    //     cron('H H * * H')
+    // }
     stages {
         stage('Pull Script') {
             when {
@@ -89,23 +91,24 @@ pipeline {
             }
             steps {
                 script {
-                   dir('scripts') {
-                        sh "PATH=$PATH:/usr/local/bin certbot certonly \
-                        --manual \
-                        --logs-dir ./var/log/letsencrypt \
-                        --work-dir ./var/letsencrypt \
-                        --config-dir ./etc/letsencrypt \
-                        --preferred-challenges=dns \
-                        --manual-auth-hook ./authenticator.sh \
-                        --manual-cleanup-hook ./cleanup.sh \
-                        -d ${env.APPLY_DOMAIN} \
-                        -m ${env.EMAIL} \
-                        --server ${env.ACME_SERVER} \
-                        --agree-tos \
-                        --manual-public-ip-logging-ok \
-                        --force-renewal \
-                        --break-my-certs"
-                    }
+                //    dir('scripts') {
+                //         sh "PATH=$PATH:/usr/local/bin certbot certonly \
+                //         --manual \
+                //         --logs-dir ./var/log/letsencrypt \
+                //         --work-dir ./var/letsencrypt \
+                //         --config-dir ./etc/letsencrypt \
+                //         --preferred-challenges=dns \
+                //         --manual-auth-hook ./authenticator.sh \
+                //         --manual-cleanup-hook ./cleanup.sh \
+                //         -d ${env.APPLY_DOMAIN} \
+                //         -m ${env.EMAIL} \
+                //         --server ${env.ACME_SERVER} \
+                //         --agree-tos \
+                //         --manual-public-ip-logging-ok \
+                //         --force-renewal \
+                //         --break-my-certs"
+                //     }
+                    sh "echo stagio = ${acmeMode} / CLIENT_IP = ${clientIP}"
                 }
             }
         }
@@ -127,22 +130,23 @@ pipeline {
             }
             steps {
                 script {
-                    dir('scripts') {
-                        sh "PATH=$PATH:/usr/local/bin certbot certonly \
-                        --manual \
-                        --logs-dir /var/log/letsencrypt \
-                        --work-dir /var/letsencrypt \
-                        --config-dir /etc/letsencrypt \
-                        --preferred-challenges=dns \
-                        --manual-auth-hook ./authenticator.sh \
-                        --manual-cleanup-hook ./cleanup.sh \
-                        -d ${env.APPLY_DOMAIN} \
-                        -m ${env.EMAIL} \
-                        --server ${env.ACME_SERVER} \
-                        --agree-tos \
-                        --manual-public-ip-logging-ok \
-                        --force-renewal"
-                    }
+                //     dir('scripts') {
+                //         sh "PATH=$PATH:/usr/local/bin certbot certonly \
+                //         --manual \
+                //         --logs-dir /var/log/letsencrypt \
+                //         --work-dir /var/letsencrypt \
+                //         --config-dir /etc/letsencrypt \
+                //         --preferred-challenges=dns \
+                //         --manual-auth-hook ./authenticator.sh \
+                //         --manual-cleanup-hook ./cleanup.sh \
+                //         -d ${env.APPLY_DOMAIN} \
+                //         -m ${env.EMAIL} \
+                //         --server ${env.ACME_SERVER} \
+                //         --agree-tos \
+                //         --manual-public-ip-logging-ok \
+                //         --force-renewal"
+                //     }
+                    sh "echo stagio = ${acmeMode} / CLIENT_IP = ${clientIP}"
                 }
             }
         }
